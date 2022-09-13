@@ -27,10 +27,10 @@ public class ListenerTest {
 
         connectionOne =
                 (SQLiteConnection)
-                        DriverManager.getConnection("jdbc:sqlite:" + tmpFile.getAbsolutePath());
+                        DriverManager.getConnection("jdbc:sqld22:" + tmpFile.getAbsolutePath());
         connectionTwo =
                 (SQLiteConnection)
-                        DriverManager.getConnection("jdbc:sqlite:" + tmpFile.getAbsolutePath());
+                        DriverManager.getConnection("jdbc:sqld22:" + tmpFile.getAbsolutePath());
 
         Statement create = connectionOne.createStatement();
         create.execute(

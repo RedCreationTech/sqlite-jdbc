@@ -141,7 +141,7 @@
         config.setSharedCache(true);
         config.recursiveTriggers(true);
         // ... other configuration can be set via SQLiteConfig object
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:sample.db", config.toProperties());
+        Connection conn = DriverManager.getConnection("jdbc:sqld22:sample.db", config.toProperties());
         ```
 
 *   2009 November 12th: [sqlite-jdbc-3.6.19](http://www.xerial.org/maven/repository/artifact/org/xerial/sqlite-jdbc/3.6.19/) released.
@@ -150,7 +150,7 @@
 *   2009 July 2nd: [sqlite-jdbc-3.6.16](http://www.xerial.org/maven/repository/artifact/org/xerial/sqlite-jdbc/3.6.16/) release.
 *   2009 June 4th: [sqlite-jdbc-3.6.14.2](http://www.xerial.org/maven/repository/artifact/org/xerial/sqlite-jdbc/3.6.14.2/) released.
 *   2009 May 19th: [sqlite-jdbc-3.6.14.1](http://www.xerial.org/maven/repository/artifact/org/xerial/sqlite-jdbc/3.6.14.1/) released.
-    *   This version supports "jdbc:sqlite::resource:" syntax to access read-only
+    *   This version supports "jdbc:sqld22::resource:" syntax to access read-only
         DB files contained in JAR archives, or external resources specified via URL, local files address etc. (see also the [details](http://groups.google.com/group/xerial/browse_thread/thread/39acb38f99eb2469/fc6afceabeaa0f76?lnk=gst&q=resource#fc6afceabeaa0f76))
 
 
@@ -167,7 +167,7 @@
         // READ_UNCOMMITTED mode works only in shared_cache mode.
          Properties prop = new Properties();
          prop.setProperty("shared_cache", "true");
-         Connection conn = DriverManager.getConnection("jdbc:sqlite:", prop);
+         Connection conn = DriverManager.getConnection("jdbc:sqld22:", prop);
          conn.setTransactionIsolation(Conn.TRANSACTION_READ_UNCOMMITTED);
         ```
 

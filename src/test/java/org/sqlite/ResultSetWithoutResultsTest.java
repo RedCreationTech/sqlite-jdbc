@@ -19,7 +19,7 @@ public class ResultSetWithoutResultsTest {
      */
     @Test
     public void testQueryIsReset() throws Exception {
-        try (Connection con = DriverManager.getConnection("jdbc:sqlite::memory:")) {
+        try (Connection con = DriverManager.getConnection("jdbc:sqld22::memory:")) {
             try (Statement statement = con.createStatement()) {
                 // run a few queries with no results
                 for (int i = 0; i < 3; i++) {

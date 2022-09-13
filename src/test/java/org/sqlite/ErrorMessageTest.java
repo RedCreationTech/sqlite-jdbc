@@ -19,7 +19,7 @@ public class ErrorMessageTest {
         File from = File.createTempFile("error-message-test-moved-from", ".sqlite");
         from.deleteOnExit();
 
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:" + from.getAbsolutePath());
+        Connection conn = DriverManager.getConnection("jdbc:sqld22:" + from.getAbsolutePath());
         Statement stmt = conn.createStatement();
         stmt.executeUpdate("create table sample(id, name)");
         stmt.executeUpdate("insert into sample values(1, 'foo')");
@@ -41,7 +41,7 @@ public class ErrorMessageTest {
         File file = File.createTempFile("error-message-test-write-protected", ".sqlite");
         file.deleteOnExit();
 
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:" + file.getAbsolutePath());
+        Connection conn = DriverManager.getConnection("jdbc:sqld22:" + file.getAbsolutePath());
         Statement stmt = conn.createStatement();
         stmt.executeUpdate("create table sample(id, name)");
         stmt.executeUpdate("insert into sample values(1, 'foo')");
@@ -50,7 +50,7 @@ public class ErrorMessageTest {
 
         assumeThat(file.setReadOnly()).isTrue();
 
-        conn = DriverManager.getConnection("jdbc:sqlite:" + file.getAbsolutePath());
+        conn = DriverManager.getConnection("jdbc:sqld22:" + file.getAbsolutePath());
         stmt = conn.createStatement();
         Statement finalStmt = stmt;
         assertThatThrownBy(() -> finalStmt.executeUpdate("insert into sample values(2, 'bar')"))
@@ -68,7 +68,7 @@ public class ErrorMessageTest {
         dir.deleteOnExit();
 
         assertThatThrownBy(
-                        () -> DriverManager.getConnection("jdbc:sqlite:" + dir.getAbsolutePath()))
+                        () -> DriverManager.getConnection("jdbc:sqld22:" + dir.getAbsolutePath()))
                 .isInstanceOf(SQLException.class)
                 .hasMessageStartingWith("[SQLITE_CANTOPEN");
     }
@@ -79,7 +79,7 @@ public class ErrorMessageTest {
         File from = File.createTempFile("error-message-test-plain-1", ".sqlite");
         from.deleteOnExit();
 
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:" + from.getAbsolutePath());
+        Connection conn = DriverManager.getConnection("jdbc:sqld22:" + from.getAbsolutePath());
         Statement stmt = conn.createStatement();
         stmt.executeUpdate("create table sample(id, name)");
         stmt.executeUpdate("insert into sample values(1, 'foo')");

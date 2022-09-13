@@ -28,7 +28,7 @@ public class DBMetaDataTest {
 
     @BeforeEach
     public void connect() throws Exception {
-        conn = DriverManager.getConnection("jdbc:sqlite:");
+        conn = DriverManager.getConnection("jdbc:sqld22:");
         stat = conn.createStatement();
         stat.executeUpdate(
                 "create table test (id integer primary key, fn float default 0.0, sn not null, intvalue integer(5), realvalue real(8,3));");
@@ -1384,7 +1384,7 @@ public class DBMetaDataTest {
         int minorVersion = Integer.parseInt(versionString.split("\\.")[1]);
 
         assertThat(majorVersion > 0).as("major version check").isTrue();
-        assertThat(meta.getDriverName()).as("driver name").isEqualTo("SQLite JDBC");
+        assertThat(meta.getDriverName()).as("driver name").isEqualTo("D22 JDBC");
         assertThat(
                         meta.getDriverVersion()
                                 .startsWith(String.format("%d.%d", majorVersion, minorVersion)))

@@ -48,7 +48,7 @@ public class SQLiteJDBCLoaderTest {
     public void setUp() throws Exception {
         connection = null;
         // create a database connection
-        connection = DriverManager.getConnection("jdbc:sqlite::memory:");
+        connection = DriverManager.getConnection("jdbc:sqld22::memory:");
     }
 
     @AfterEach
@@ -114,7 +114,7 @@ public class SQLiteJDBCLoaderTest {
         final AtomicInteger completedThreads = new AtomicInteger(0);
         ExecutorService pool = Executors.newFixedThreadPool(32);
         for (int i = 0; i < 32; i++) {
-            final String connStr = "jdbc:sqlite:target/sample-" + i + ".db";
+            final String connStr = "jdbc:sqld22:target/sample-" + i + ".db";
             final int sleepMillis = i;
             pool.execute(
                     () -> {

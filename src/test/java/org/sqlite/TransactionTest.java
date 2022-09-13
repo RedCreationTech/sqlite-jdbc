@@ -46,9 +46,9 @@ public class TransactionTest {
         Properties prop = new Properties();
         prop.setProperty("shared_cache", "false");
 
-        conn1 = DriverManager.getConnection("jdbc:sqlite:" + tmpFile.getAbsolutePath(), prop);
-        conn2 = DriverManager.getConnection("jdbc:sqlite:" + tmpFile.getAbsolutePath(), prop);
-        conn3 = DriverManager.getConnection("jdbc:sqlite:" + tmpFile.getAbsolutePath(), prop);
+        conn1 = DriverManager.getConnection("jdbc:sqld22:" + tmpFile.getAbsolutePath(), prop);
+        conn2 = DriverManager.getConnection("jdbc:sqld22:" + tmpFile.getAbsolutePath(), prop);
+        conn3 = DriverManager.getConnection("jdbc:sqld22:" + tmpFile.getAbsolutePath(), prop);
 
         stat1 = conn1.createStatement();
         stat2 = conn2.createStatement();
@@ -343,7 +343,7 @@ public class TransactionTest {
         File tmpFile = File.createTempFile("test-trans", ".db");
 
         SQLiteDataSource ds = new SQLiteDataSource();
-        ds.setUrl("jdbc:sqlite:" + tmpFile.getAbsolutePath());
+        ds.setUrl("jdbc:sqld22:" + tmpFile.getAbsolutePath());
 
         // deferred
         SQLiteConnection con = (SQLiteConnection) ds.getConnection();

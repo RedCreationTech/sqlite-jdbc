@@ -20,7 +20,7 @@ public class ResultSetTest {
 
     @BeforeEach
     public void connect() throws Exception {
-        conn = DriverManager.getConnection("jdbc:sqlite:");
+        conn = DriverManager.getConnection("jdbc:sqld22:");
         stat = conn.createStatement();
         stat.executeUpdate(
                 "create table test (id int primary key, DESCRIPTION varchar(40), fOo varchar(3));");

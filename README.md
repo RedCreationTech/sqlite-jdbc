@@ -50,7 +50,7 @@ id = 2
         try
         {
           // create a database connection
-          connection = DriverManager.getConnection("jdbc:sqlite:sample.db");
+          connection = DriverManager.getConnection("jdbc:sqld22:sample.db");
           Statement statement = connection.createStatement();
           statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
@@ -139,7 +139,7 @@ If the SQLite version is updated to `3.40.0`, the project version will be update
 
 ## Hint for maven-shade-plugin
 
-You may need to add shade plugin transformer to solve `No suitable driver found for jdbc:sqlite:` issue.
+You may need to add shade plugin transformer to solve `No suitable driver found for jdbc:sqld22:` issue.
 
 ```xml
 <transformer

@@ -17,7 +17,7 @@ public class ExtensionTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        conn = DriverManager.getConnection("jdbc:sqlite:");
+        conn = DriverManager.getConnection("jdbc:sqld22:");
         stat = conn.createStatement();
     }
 

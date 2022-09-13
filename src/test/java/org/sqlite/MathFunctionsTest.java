@@ -18,7 +18,7 @@ public class MathFunctionsTest {
 
     @BeforeEach
     public void connect() throws Exception {
-        conn = DriverManager.getConnection("jdbc:sqlite::memory:");
+        conn = DriverManager.getConnection("jdbc:sqld22::memory:");
         stat = conn.createStatement();
     }
 

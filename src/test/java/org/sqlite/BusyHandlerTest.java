@@ -36,7 +36,7 @@ public class BusyHandlerTest {
      * @throws SQLException if the connection cannot be established
      */
     private static Connection createConnection(int threadNum) throws SQLException {
-        return DriverManager.getConnection("jdbc:sqlite:target/test" + threadNum + ".db");
+        return DriverManager.getConnection("jdbc:sqld22:target/test" + threadNum + ".db");
     }
 
     @AfterEach

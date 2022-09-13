@@ -55,7 +55,7 @@ public class MultipleClassLoaderTest {
     public void setUp() throws Exception {
         connection = null;
         // create a database connection
-        connection = DriverManager.getConnection("jdbc:sqlite::memory:");
+        connection = DriverManager.getConnection("jdbc:sqld22::memory:");
     }
 
     @AfterEach

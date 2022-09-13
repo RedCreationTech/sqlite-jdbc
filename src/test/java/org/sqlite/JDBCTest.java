@@ -26,7 +26,7 @@ public class JDBCTest {
         Properties prop = new Properties();
         prop.setProperty("enable_load_extension", "true");
 
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:", prop)) {
+        try (Connection conn = DriverManager.getConnection("jdbc:sqld22:", prop)) {
             Statement stat = conn.createStatement();
 
             // How to build shared lib in Windows
@@ -43,8 +43,8 @@ public class JDBCTest {
 
     @Test
     public void majorVersion() throws Exception {
-        int major = DriverManager.getDriver("jdbc:sqlite:").getMajorVersion();
-        int minor = DriverManager.getDriver("jdbc:sqlite:").getMinorVersion();
+        int major = DriverManager.getDriver("jdbc:sqld22:").getMajorVersion();
+        int minor = DriverManager.getDriver("jdbc:sqld22:").getMinorVersion();
     }
 
     @Test
@@ -57,7 +57,7 @@ public class JDBCTest {
         SQLiteConnection connection =
                 (SQLiteConnection)
                         DriverManager.getConnection(
-                                "jdbc:sqlite::memory:?jdbc.explicit_readonly=true");
+                                "jdbc:sqld22::memory:?jdbc.explicit_readonly=true");
         assertThat(connection.getDatabase().getConfig().isExplicitReadOnly()).isTrue();
     }
 
@@ -179,7 +179,7 @@ public class JDBCTest {
     public void jdbcHammer() throws Exception {
         final SQLiteDataSource dataSource = createDatasourceWithExplicitReadonly();
         File tempFile = File.createTempFile("myTestDB", ".db");
-        dataSource.setUrl("jdbc:sqlite:" + tempFile.getAbsolutePath());
+        dataSource.setUrl("jdbc:sqld22:" + tempFile.getAbsolutePath());
         try (Connection connection = dataSource.getConnection()) {
             connection.setAutoCommit(false);
             try (Statement stmt = connection.createStatement()) {

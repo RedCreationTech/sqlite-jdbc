@@ -21,7 +21,7 @@ public class RSMetaDataTest {
 
     @BeforeEach
     public void connect() throws Exception {
-        conn = DriverManager.getConnection("jdbc:sqlite:");
+        conn = DriverManager.getConnection("jdbc:sqld22:");
         stat = conn.createStatement();
         stat.executeUpdate(
                 "create table People (pid integer primary key autoincrement, "

@@ -29,7 +29,7 @@ import org.sqlite.core.DB;
  *
  * <pre>
  *      Class.forName("org.sqlite.JDBC");
- *      Connection conn = DriverManager.getConnection("jdbc:sqlite:");
+ *      Connection conn = DriverManager.getConnection("jdbc:sqld22:");
  *
  *      Function.create(conn, "myFunc", new Function() {
  *          protected void xFunc() {

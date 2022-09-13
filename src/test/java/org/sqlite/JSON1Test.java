@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 public class JSON1Test {
 
     public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:sqlite::memory:");
+        return DriverManager.getConnection("jdbc:sqld22::memory:");
     }
 
     @Test

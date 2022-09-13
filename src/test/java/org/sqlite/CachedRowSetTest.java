@@ -13,7 +13,7 @@ public class CachedRowSetTest {
 
     @Test
     public void gh_224() throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:");
+        Connection connection = DriverManager.getConnection("jdbc:sqld22:");
         try (Statement statement = connection.createStatement()) {
             statement.execute("create table person (id INTEGER, name VARCHAR(50))");
             statement.execute("insert into person values(1, 'leo')");

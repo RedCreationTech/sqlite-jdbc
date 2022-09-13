@@ -33,7 +33,7 @@ public class ConnectionTest {
 
     @Test
     public void isValid() throws SQLException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:");
+        Connection conn = DriverManager.getConnection("jdbc:sqld22:");
         assertThat(conn.isValid(0)).isTrue();
         conn.close();
         assertThat(conn.isValid(0)).isFalse();
@@ -41,7 +41,7 @@ public class ConnectionTest {
 
     @Test
     public void executeUpdateOnClosedDB() throws SQLException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:");
+        Connection conn = DriverManager.getConnection("jdbc:sqld22:");
         Statement stat = conn.createStatement();
         conn.close();
 
@@ -56,7 +56,7 @@ public class ConnectionTest {
         SQLiteConfig config = new SQLiteConfig();
         config.setReadOnly(true);
 
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:", config.toProperties())) {
+        try (Connection conn = DriverManager.getConnection("jdbc:sqld22:", config.toProperties())) {
             try (Statement stat = conn.createStatement()) {
                 assertThat(conn.isReadOnly()).isTrue();
 
@@ -84,7 +84,7 @@ public class ConnectionTest {
         SQLiteConfig config = new SQLiteConfig();
         config.enforceForeignKeys(true);
 
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:", config.toProperties());
+        try (Connection conn = DriverManager.getConnection("jdbc:sqld22:", config.toProperties());
                 Statement stat = conn.createStatement()) {
 
             stat.executeUpdate(
@@ -107,7 +107,7 @@ public class ConnectionTest {
     public void canWrite() throws SQLException {
         SQLiteConfig config = new SQLiteConfig();
         config.enforceForeignKeys(true);
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:", config.toProperties())) {
+        try (Connection conn = DriverManager.getConnection("jdbc:sqld22:", config.toProperties())) {
             conn.createStatement();
             assertThat(conn.isReadOnly()).isFalse();
         }
@@ -117,7 +117,7 @@ public class ConnectionTest {
     public void synchronous() throws SQLException {
         SQLiteConfig config = new SQLiteConfig();
         config.setSynchronous(SynchronousMode.OFF);
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:", config.toProperties());
+        try (Connection conn = DriverManager.getConnection("jdbc:sqld22:", config.toProperties());
                 Statement stat = conn.createStatement()) {
             ResultSet rs = stat.executeQuery("pragma synchronous");
             if (rs.next()) {
@@ -131,20 +131,20 @@ public class ConnectionTest {
 
     @Test
     public void openMemory() throws SQLException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:");
+        Connection conn = DriverManager.getConnection("jdbc:sqld22:");
         conn.close();
     }
 
     @Test
     public void isClosed() throws SQLException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:");
+        Connection conn = DriverManager.getConnection("jdbc:sqld22:");
         conn.close();
         assertThat(conn.isClosed()).isTrue();
     }
 
     @Test
     public void closeTest() throws SQLException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:");
+        Connection conn = DriverManager.getConnection("jdbc:sqld22:");
         PreparedStatement prep = conn.prepareStatement("select null;");
         prep.executeQuery();
         conn.close();
@@ -154,7 +154,7 @@ public class ConnectionTest {
     @Test
     public void openInvalidLocation() {
         assertThatExceptionOfType(SQLException.class)
-                .isThrownBy(() -> DriverManager.getConnection("jdbc:sqlite:/"));
+                .isThrownBy(() -> DriverManager.getConnection("jdbc:sqld22:/"));
     }
 
     @Test
@@ -163,7 +163,7 @@ public class ConnectionTest {
         assertThat(testDB.exists()).isTrue();
         Connection conn =
                 DriverManager.getConnection(
-                        String.format("jdbc:sqlite::resource:%s", testDB.toURI().toURL()));
+                        String.format("jdbc:sqld22::resource:%s", testDB.toURI().toURL()));
         Statement stat = conn.createStatement();
         ResultSet rs = stat.executeQuery("select * from coordinate");
         assertThat(rs.next()).isTrue();
@@ -180,7 +180,7 @@ public class ConnectionTest {
         Connection conn =
                 DriverManager.getConnection(
                         String.format(
-                                "jdbc:sqlite::resource:jar:%s!/sample.db",
+                                "jdbc:sqld22::resource:jar:%s!/sample.db",
                                 testJAR.toURI().toURL()));
         Statement stat = conn.createStatement();
         ResultSet rs = stat.executeQuery("select * from coordinate");
@@ -195,13 +195,13 @@ public class ConnectionTest {
         File testDB = copyToTemp("sample.db");
 
         assertThat(testDB.exists()).isTrue();
-        Connection conn = DriverManager.getConnection(String.format("jdbc:sqlite:%s", testDB));
+        Connection conn = DriverManager.getConnection(String.format("jdbc:sqld22:%s", testDB));
         conn.close();
     }
 
     @Test
     public void concurrentClose() throws SQLException, InterruptedException, ExecutionException {
-        final Connection conn = DriverManager.getConnection("jdbc:sqlite:");
+        final Connection conn = DriverManager.getConnection("jdbc:sqld22:");
         ResultSet[] rss = new ResultSet[512];
         for (int i = 0; i < rss.length; i++) {
             rss[i] = conn.prepareStatement("select null;").executeQuery();
@@ -249,21 +249,21 @@ public class ConnectionTest {
     @Test
     public void URIFilenames() throws SQLException {
         Connection conn1 =
-                DriverManager.getConnection("jdbc:sqlite:file:memdb1?mode=memory&cache=shared");
+                DriverManager.getConnection("jdbc:sqld22:file:memdb1?mode=memory&cache=shared");
         Statement stmt1 = conn1.createStatement();
         stmt1.executeUpdate("create table tbl (col int)");
         stmt1.executeUpdate("insert into tbl values(100)");
         stmt1.close();
 
         Connection conn2 =
-                DriverManager.getConnection("jdbc:sqlite:file:memdb1?mode=memory&cache=shared");
+                DriverManager.getConnection("jdbc:sqld22:file:memdb1?mode=memory&cache=shared");
         Statement stmt2 = conn2.createStatement();
         ResultSet rs = stmt2.executeQuery("select * from tbl");
         assertThat(rs.next()).isTrue();
         assertThat(rs.getInt(1)).isEqualTo(100);
         stmt2.close();
 
-        Connection conn3 = DriverManager.getConnection("jdbc:sqlite:file::memory:?cache=shared");
+        Connection conn3 = DriverManager.getConnection("jdbc:sqld22:file::memory:?cache=shared");
         Statement stmt3 = conn3.createStatement();
         stmt3.executeUpdate("attach 'file:memdb1?mode=memory&cache=shared' as memdb1");
         rs = stmt3.executeQuery("select * from memdb1.tbl");
@@ -273,7 +273,7 @@ public class ConnectionTest {
         stmt3.executeUpdate("insert into tbl2 values(200)");
         stmt3.close();
 
-        Connection conn4 = DriverManager.getConnection("jdbc:sqlite:file::memory:?cache=shared");
+        Connection conn4 = DriverManager.getConnection("jdbc:sqld22:file::memory:?cache=shared");
         Statement stmt4 = conn4.createStatement();
         rs = stmt4.executeQuery("select * from tbl2");
         assertThat(rs.next()).isTrue();
@@ -291,7 +291,7 @@ public class ConnectionTest {
         Connection conn =
                 DriverManager.getConnection(
                         String.format(
-                                "jdbc:sqlite:%s?journal_mode=WAL&synchronous=OFF&journal_size_limit=500",
+                                "jdbc:sqld22:%s?journal_mode=WAL&synchronous=OFF&journal_size_limit=500",
                                 testDB));
         Statement stat = conn.createStatement();
 
@@ -318,7 +318,7 @@ public class ConnectionTest {
         assertThat(testDB.exists()).isTrue();
         Connection conn =
                 DriverManager.getConnection(
-                        String.format("jdbc:sqlite:%s?limit_attached=0", testDB));
+                        String.format("jdbc:sqld22:%s?limit_attached=0", testDB));
         Statement stat = conn.createStatement();
 
         assertThatExceptionOfType(SQLException.class)
@@ -331,7 +331,7 @@ public class ConnectionTest {
     public void ignoreUnknownParametersInURI() throws Exception {
         Connection conn =
                 DriverManager.getConnection(
-                        "jdbc:sqlite:file::memory:?cache=shared&foreign_keys=ON&debug=&invalid");
+                        "jdbc:sqld22:file::memory:?cache=shared&foreign_keys=ON&debug=&invalid");
         Statement stat = conn.createStatement();
 
         ResultSet rs = stat.executeQuery("pragma foreign_keys");
@@ -348,7 +348,7 @@ public class ConnectionTest {
                 .isThrownBy(
                         () ->
                                 DriverManager.getConnection(
-                                        "jdbc:sqlite:file::memory:?journal_mode=&synchronous="));
+                                        "jdbc:sqld22:file::memory:?journal_mode=&synchronous="));
     }
 
     @Test
@@ -359,7 +359,7 @@ public class ConnectionTest {
         Connection conn =
                 DriverManager.getConnection(
                         String.format(
-                                "jdbc:sqlite:%s?synchronous=OFF&&&&journal_mode=WAL", testDB));
+                                "jdbc:sqld22:%s?synchronous=OFF&&&&journal_mode=WAL", testDB));
         Statement stat = conn.createStatement();
 
         ResultSet rs = stat.executeQuery("pragma journal_mode");
@@ -382,7 +382,7 @@ public class ConnectionTest {
         Connection conn =
                 DriverManager.getConnection(
                         String.format(
-                                "jdbc:sqlite:%s?journal_mode=WAL&journal_mode=MEMORY&journal_mode=TRUNCATE",
+                                "jdbc:sqld22:%s?journal_mode=WAL&journal_mode=MEMORY&journal_mode=TRUNCATE",
                                 testDB));
         Statement stat = conn.createStatement();
 
@@ -403,7 +403,7 @@ public class ConnectionTest {
         props.setProperty(Pragma.JOURNAL_MODE.pragmaName, JournalMode.TRUNCATE.name());
         Connection conn =
                 DriverManager.getConnection(
-                        String.format("jdbc:sqlite:%s?journal_mode=WAL", testDB), props);
+                        String.format("jdbc:sqld22:%s?journal_mode=WAL", testDB), props);
         Statement stat = conn.createStatement();
 
         ResultSet rs = stat.executeQuery("pragma journal_mode");

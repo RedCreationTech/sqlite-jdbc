@@ -42,7 +42,7 @@ public class InsertQueryTest {
 
     class IndependentConnectionFactory implements ConnectionFactory {
         public Connection getConnection() throws SQLException {
-            return DriverManager.getConnection("jdbc:sqlite:" + dbName);
+            return DriverManager.getConnection("jdbc:sqld22:" + dbName);
         }
 
         public void dispose() throws SQLException {}
@@ -53,7 +53,7 @@ public class InsertQueryTest {
 
         public Connection getConnection() throws SQLException {
             if (conn == null) {
-                conn = DriverManager.getConnection("jdbc:sqlite:" + dbName);
+                conn = DriverManager.getConnection("jdbc:sqld22:" + dbName);
             }
             return conn;
         }
@@ -177,8 +177,8 @@ public class InsertQueryTest {
     @Disabled("Not sure this worked recently, the second query cannot find the table 'sample'")
     @Test
     public void reproduceDatabaseLocked() throws SQLException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbName);
-        Connection conn2 = DriverManager.getConnection("jdbc:sqlite:" + dbName);
+        Connection conn = DriverManager.getConnection("jdbc:sqld22:" + dbName);
+        Connection conn2 = DriverManager.getConnection("jdbc:sqld22:" + dbName);
         Statement stat = conn.createStatement();
         Statement stat2 = conn2.createStatement();
 

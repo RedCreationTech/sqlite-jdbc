@@ -19,7 +19,7 @@ public class MetadataLeakTest {
      */
     @Test
     void testMemoryIsFreed() throws Exception {
-        try (Connection con = DriverManager.getConnection("jdbc:sqlite::memory:")) {
+        try (Connection con = DriverManager.getConnection("jdbc:sqld22::memory:")) {
             DatabaseMetaData meta = con.getMetaData();
 
             Statement statement;

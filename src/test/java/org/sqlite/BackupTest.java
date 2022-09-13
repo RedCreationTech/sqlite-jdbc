@@ -29,7 +29,7 @@ public class BackupTest {
         tmpFile.deleteOnExit();
 
         // memory DB to file
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:");
+        Connection conn = DriverManager.getConnection("jdbc:sqld22:");
         Statement stmt = conn.createStatement();
         stmt.executeUpdate("create table sample(id, name)");
         stmt.executeUpdate("insert into sample values(1, \"leo\")");
@@ -39,7 +39,7 @@ public class BackupTest {
         stmt.close();
 
         // open another memory database
-        Connection conn2 = DriverManager.getConnection("jdbc:sqlite:");
+        Connection conn2 = DriverManager.getConnection("jdbc:sqld22:");
         Statement stmt2 = conn2.createStatement();
         stmt2.execute("restore from " + tmpFile.getAbsolutePath());
         ResultSet rs = stmt2.executeQuery("select * from sample");
@@ -59,7 +59,7 @@ public class BackupTest {
             return; // skip this test in pure-java mode
         }
 
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:");
+        Connection conn = DriverManager.getConnection("jdbc:sqld22:");
         Statement stmt = conn.createStatement();
         stmt.executeUpdate("create table sample(id integer primary key autoincrement, name)");
         for (int i = 0; i < 10000; i++) {

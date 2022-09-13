@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 import org.sqlite.jdbc4.JDBC4Connection;
 
 public class JDBC implements Driver {
-    public static final String PREFIX = "jdbc:sqlite:";
+    public static final String PREFIX = "jdbc:sqld22:";
 
     static {
         try {

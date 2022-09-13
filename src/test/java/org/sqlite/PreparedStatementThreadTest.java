@@ -68,7 +68,7 @@ public class PreparedStatementThreadTest {
     }
 
     public void connect() throws SQLException {
-        conn = DriverManager.getConnection("jdbc:sqlite:");
+        conn = DriverManager.getConnection("jdbc:sqld22:");
     }
 
     public void close() throws SQLException {

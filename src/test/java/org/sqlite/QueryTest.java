@@ -29,7 +29,7 @@ import org.sqlite.date.FastDateFormat;
 
 public class QueryTest {
     public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:sqlite::memory:");
+        return DriverManager.getConnection("jdbc:sqld22::memory:");
     }
 
     @Test
@@ -107,7 +107,7 @@ public class QueryTest {
     public void dateTimeWithTimeZoneTest() throws Exception {
         Properties properties = new Properties();
         properties.setProperty(SQLiteConfig.Pragma.DATE_CLASS.pragmaName, "text");
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:", properties);
+        Connection conn = DriverManager.getConnection("jdbc:sqld22:", properties);
 
         try (Statement statement = conn.createStatement()) {
             statement.execute("create table sample (date_time datetime)");

@@ -19,7 +19,7 @@ public class ProgressHandlerTest {
 
     @BeforeEach
     public void connect() throws Exception {
-        conn = DriverManager.getConnection("jdbc:sqlite:");
+        conn = DriverManager.getConnection("jdbc:sqld22:");
         stat = conn.createStatement();
     }
 
